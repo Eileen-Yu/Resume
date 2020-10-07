@@ -11,6 +11,16 @@ jobs:
         uses: actions/checkout@v2
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
+        run: |
+          [ ! -f /usr/share/fonts/truetype/msttcorefonts/tahoma.ttf -o ! -f /usr/share/fonts/truetype/msttcorefonts/tahomabd.ttf ] && \
+          wget https://sourceforge.net/projects/corefonts/files/OldFiles/IELPKTH.CAB && \
+          cabextract -F 'tahoma*ttf' IELPKTH.CAB && \
+          mkdir -p /usr/share/fonts/truetype/msttcorefonts/ && \
+          mv -f tahoma*ttf /usr/share/fonts/truetype/msttcorefonts/ && \
+          chmod 644 /usr/share/fonts/truetype/msttcorefonts/tahoma* && \
+          fc-cache -v && \
+          rm -f IELPKTH.CAB && \
+          echo "Installed Tahoma"
         with:
           root_file: template_cn_blue.tex
           latexmk_use_xelatex: true
