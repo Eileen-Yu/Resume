@@ -12,6 +12,6 @@ jobs:
       - name: Install Homebrew
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
       - name: Install LaTeX
-        run: brew cask install mactex-no-gui
+        run: brew cask install mactex-no-gui && eval "$(/usr/libexec/path_helper)"
       - name: Compile tex file
         run: xelatex -interaction=nonstopmode template_cn_blue.tex
